@@ -18,13 +18,20 @@ struct StoresListView: View {
 
             List(storesMock) {
                 store in
-                StoreItemView(orderItem: store)
-                    .listRowSeparator(.hidden)
+                
+                NavigationLink(destination: {
+                    StoreDetailView(store: store)
+                }, label: {
+                    StoreItemView(orderItem: store)
+                })
             }
             .scrollDisabled(true)
             .scrollContentBackground(.hidden)
             .scaledToFit()
             .listStyle(.plain)
+            .foregroundStyle(.black)
+            .listRowSeparator(.hidden)
+
         }
        
     }

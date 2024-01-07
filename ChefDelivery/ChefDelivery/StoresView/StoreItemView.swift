@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct StoreItemView: View {
-    var orderItem: OrderType
+    var orderItem: StoreType
     
     var body: some View {
         HStack {
-            Image(orderItem.image)
+            Image(orderItem.logoImage)
                 .resizable()
                 .scaledToFit()
                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
@@ -21,12 +21,17 @@ struct StoreItemView: View {
             Text(orderItem.name)
                 .font(.subheadline)
         }
-        .onTapGesture {
-            print("Click item: \(orderItem.name)")
-        }
     }
 }
 
 #Preview {
-    StoreItemView(orderItem: OrderType(id: 1, name: "Food court", image: "fraldinha"))
+    StoreItemView(orderItem: StoreType(
+        id: 1,
+        name: "Monstro Burger",
+        logoImage: "monstro-burger-logo",
+        headerImage: "monstro-burger-header",
+        location: "Rua Principal, 123, São Paulo, SP",
+        rate: 4,
+        products: []
+    ))
 }
