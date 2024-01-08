@@ -12,7 +12,7 @@ struct ProductDetailView: View {
     @State private var productQuantity = 1
     @State private var showAlert = false
     
-    private let service = NativeRequest()
+    private let service = NetworkService()
 
     
     var body: some View {
