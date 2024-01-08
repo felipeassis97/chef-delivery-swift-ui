@@ -69,7 +69,7 @@ struct NetworkService {
             let encodeProduct = try JSONEncoder().encode(product)
             request.httpBody = encodeProduct
             let (data, _) = try await URLSession.shared.data(for: request)
-            return .success("Success")
+            return .success("Success: \(data)")
         }
         catch {
             return .failure(.requestError(error: "Error na request"))

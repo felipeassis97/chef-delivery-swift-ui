@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let service = NativeRequest()
+    private let service = NetworkService()
     
     @State private var homeStores: [StoreType] = []
     @State private var isLoading: Bool = false
@@ -50,7 +50,7 @@ struct ContentView: View {
     
     func getStoresAlamofire() {
         service.fetchDataAlamofire { stores, error in
-            print("ALAMOFIRE: \(stores)")
+            print("ALAMOFIRE: \(String(describing: stores))")
         }
     }
     
