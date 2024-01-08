@@ -10,8 +10,10 @@ import SwiftUI
 struct StoresListView: View {
     
     @State private var rateFilter = 0
+    
+    var stores: [StoreType]
     var filteredStores: [StoreType] {
-        return storesMock.filter { store in
+        return stores.filter { store in
             store.rate >= rateFilter
         }
     }
@@ -83,5 +85,5 @@ struct StoresListView: View {
 }
 
 #Preview {
-    StoresListView()
+    StoresListView(stores: storesMock)
 }

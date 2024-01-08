@@ -10,6 +10,10 @@ import SwiftUI
 struct ProductDetailView: View {
     let product: ProductType
     @State private var productQuantity = 1
+    @State private var showAlert = false
+    
+    private let service = NativeRequest()
+
     
     var body: some View {
         VStack {
@@ -68,7 +72,25 @@ struct ProductDetailView: View {
             }
             Spacer()
             
-            Button(action: {}, label: {
+            Button(action:{
+                Task {
+                    
+                    do {
+                        let result =  try await service.sendOrder(product: product)
+                        switch result {
+                        case .failure(let error) :
+                            print(error)
+                            break
+                            
+                        case .success(let success) :
+                            showAlert = true
+                            break
+                        }
+                    } catch {
+                        print("Ocorreu um erro")
+                    }
+                }
+            }, label: {
                 HStack(spacing: 8) {
                     Image(systemName: "cart")
                     Text("Adicionar ao carrinho")
