@@ -42,6 +42,15 @@ struct ContentView: View {
                 await  getStores()
                 isLoading = false
             }
+            
+            getStoresAlamofire()
+        }
+    }
+    
+    
+    func getStoresAlamofire() {
+        service.fetchDataAlamofire { stores, error in
+            print("ALAMOFIRE: \(stores)")
         }
     }
     
@@ -50,7 +59,7 @@ struct ContentView: View {
             let result = try await service.fetchData()
             switch result {
             case .success(let stores):
-                homeStores = stores
+             homeStores = stores
             case .failure(let error):
                 print(error)
             }

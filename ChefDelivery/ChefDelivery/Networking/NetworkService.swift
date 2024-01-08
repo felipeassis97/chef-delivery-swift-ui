@@ -6,34 +6,33 @@
 //
 
 import Foundation
-struct NativeRequest {
+import Alamofire
+
+struct NetworkService {
     
-// MARK: v1
-   /* func fetchData() {
-        guard let url = URL(string: "https://private-c9da9-felipeassis.apiary-mock.com/home") else {
-            return
+// MARK: Alamofire implementation
+    func fetchDataAlamofire(completion: @escaping ([StoreType]?, Error?) -> Void) {
+        AF.request("https://private-c9da9-felipeassis.apiary-mock.com/home").responseDecodable(of: [StoreType].self) { response in
+            switch response.result {
+            case .success(let stores):
+                completion(stores, nil)
+            default: break
+            }
         }
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            
-            if let data = data {
-                do {
-                    let obj = try JSONDecoder().decode([StoreType].self, from: data)
-                    print(obj)
-                } catch {
-                    print("Decode error")
-                    return
-                }
-            }
-        }.resume()
     }
- */
     
-// MARK: v2
+    func sendOrderAlamofire(  product: ProductType, completion: @escaping (String?, Error?) -> Void) {
+        AF.request("https://private-c9da9-felipeassis.apiary-mock.com/home", method: .post).responseDecodable(of: String.self) { response in
+            switch response.result {
+            case .success(let message):
+                completion(message, nil)
+            default: break
+            }
+        }
+    }
+    
+// MARK: Native implementation
     enum RequestError: Error {
         case invalidURL
         case decodeError
