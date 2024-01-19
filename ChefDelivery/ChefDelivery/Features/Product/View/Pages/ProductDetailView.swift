@@ -82,7 +82,7 @@ struct ProductDetailView: View {
                             print(error)
                             break
                             
-                        case .success(let success) :
+                        case .success:
                             showAlert = true
                             break
                         }
