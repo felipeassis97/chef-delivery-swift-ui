@@ -7,22 +7,33 @@
 
 import SwiftUI
 
-enum Page: Identifiable, Hashable {
+
+enum NavigationParameters {
+    case productsParams(storeType: StoreType)
+}
+
+enum Page: Hashable {
     case initial
     case home
     case products(store: StoreType)
-
+    
     var id: String {
         switch self {
         case .initial:
             return "initial"
+            
         case .home:
             return "home"
+            
         case .products(let store):
-            return "products"
+            return "products_\(store.id)"
         }
     }
     
+    static func == (lhs: Page, rhs: Page) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -30,7 +41,7 @@ enum Page: Identifiable, Hashable {
 
 enum Sheet: Identifiable {
     case productDetails(product: ProductType)
-
+    
     var id: String {
         switch self {
         case .productDetails:
@@ -43,7 +54,7 @@ class Coordinator: ObservableObject {
     
     @Published var path = NavigationPath()
     @Published var sheet: Sheet?
-    
+ 
     func push(_ page: Page) {
         path.append(page)
     }
@@ -68,11 +79,12 @@ class Coordinator: ObservableObject {
     func build(page: Page) -> some View {
         switch page {
         case .initial:
-            ContentView()
+            IntroductionView()
         case .home:
             HomeView()
         case .products(let store):
             StoreDetailView(store: store)
+        
         }
     }
     

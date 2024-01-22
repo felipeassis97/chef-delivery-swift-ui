@@ -8,12 +8,7 @@
 import Foundation
 
 
-struct StoreType: Identifiable, Decodable, Equatable {
-    static func == (lhs: StoreType, rhs: StoreType) -> Bool {
-        true
-    }
-    
- 
+struct StoreType: Identifiable, Decodable {
     
     let id: Int
     let name: String

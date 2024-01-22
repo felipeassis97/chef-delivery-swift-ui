@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProductItemView: View {
+    //MARK: Atributes
     let product: ProductType
     
     var body: some View {
@@ -16,7 +17,6 @@ struct ProductItemView: View {
                 Text(product.name)
                     .bold()
                     .foregroundStyle(.black)
-
                 
                 Text(product.description)
                     .font(.subheadline)

@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ProductDetailView: View {
+    //MARK: Atributes
     let product: ProductType
-    @State private var productQuantity = 1
-    @State private var showAlert = false
-    
     private let service = NetworkService()
 
-    
+    //MARK: States
+    @State private var productQuantity = 1
+    @State private var showAlert = false
+
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 16) {
@@ -74,7 +75,6 @@ struct ProductDetailView: View {
             
             Button(action:{
                 Task {
-                    
                     do {
                         let result =  try await service.sendOrder(product: product)
                         switch result {
@@ -101,9 +101,6 @@ struct ProductDetailView: View {
                 .bold()
                 .foregroundStyle(.white)
                 .background(Color("ColorRed"))
-
-
-                
             })
             .clipShape(RoundedRectangle(cornerRadius: 32))
             .shadow(color: .black.opacity(0.3), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)

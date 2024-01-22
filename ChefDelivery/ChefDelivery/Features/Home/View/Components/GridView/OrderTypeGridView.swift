@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OrderTypeGridView: View {
+    //MARK: Atributes
     var gridLayout: [GridItem] {
         return Array(repeating: GridItem(.flexible(), spacing: 8), count: 2)
     }

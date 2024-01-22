@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CarrousselTabView: View {
+    //MARK: States
     @State private var currentCarrousselIndex = 1
     
     var body: some View {

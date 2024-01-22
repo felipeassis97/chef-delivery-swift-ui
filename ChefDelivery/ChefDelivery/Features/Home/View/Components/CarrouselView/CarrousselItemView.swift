@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CarrousselItemView: View {
+    //MARK: Atributes
     let orderItem: OrderType
     
     var body: some View {

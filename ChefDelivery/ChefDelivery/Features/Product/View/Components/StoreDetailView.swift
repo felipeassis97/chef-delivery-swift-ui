@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct StoreDetailView: View {
+    //MARK: Atributes
     let store: StoreType
+    
+    //MARK: States
     @Environment(\.dismiss) var presentaionMode
+    @EnvironmentObject private var coordinator: Coordinator
     @State private var selectedProduct: ProductType?
     
     var body: some View {
@@ -49,24 +53,16 @@ struct StoreDetailView: View {
                     .font(.title2)
                     .bold()
                     .padding()
-                
-                
                 ForEach(store.products) { product in
-                   /* NavigationLink(
-                        destination:{
-                        ProductDetailView(product: product)
-                    }, label: {
-                        ProductItemView(product: product)
-                    })*/
-                    
                     Button(action: {
                         selectedProduct = product
+                        coordinator.present(sheet: .productDetails(product: product))
                     }, label: {
                         ProductItemView(product: product)
-
-                    }).sheet(item: $selectedProduct) { product in
-                        ProductDetailView(product: product)
-                    }
+                    })
+//                    .sheet(item: $selectedProduct) { product in
+//                        ProductDetailView(product: product)
+//                    }
                 }
             }
             .navigationTitle(store.name)
@@ -75,8 +71,8 @@ struct StoreDetailView: View {
                 ToolbarItem(placement: .topBarLeading, content: {
                     Button(
                         action: {
-                            presentaionMode()
-                            // presentaionMode.callAsFunction()
+                            //presentaionMode()
+                            coordinator.pop()
                         },
                         label: {
                             HStack(spacing: 4) {

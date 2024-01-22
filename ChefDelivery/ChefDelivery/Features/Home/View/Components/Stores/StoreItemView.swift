@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StoreItemView: View {
+    //MARK: Atributes
     var orderItem: StoreType
     
     var body: some View {

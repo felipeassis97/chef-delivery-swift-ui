@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct StoresListView: View {
-    
-    @State private var rateFilter = 0
-    
+    //MARK: Atributes
     var stores: [StoreType]
     var filteredStores: [StoreType] {
         return stores.filter { store in
@@ -18,6 +16,10 @@ struct StoresListView: View {
         }
     }
     
+    //MARK: States
+    @EnvironmentObject private var coordinator: Coordinator
+    @State private var rateFilter = 0
+
     var body: some View {
         VStack(spacing: 4) {
             HStack {
@@ -61,10 +63,10 @@ struct StoresListView: View {
                     
                     Text("Nenhma loja encontrada")
                 }
-            } else {
+            } else {                
                 List(filteredStores) { store in
-                    NavigationLink(destination: {
-                        StoreDetailView(store: store)
+                    Button(action: {
+                        coordinator.push(.products(store: store))
                     }, label: {
                         StoreItemView(orderItem: store)
                     })
@@ -76,9 +78,6 @@ struct StoresListView: View {
                 .foregroundStyle(.black)
                 .listRowSeparator(.hidden)
             }
-            
-            
-            
         }
         
     }
