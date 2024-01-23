@@ -19,13 +19,12 @@ struct StoresListView: View {
     //MARK: States
     @EnvironmentObject private var coordinator: Coordinator
     @State private var rateFilter = 0
-
+    
     var body: some View {
         VStack(spacing: 4) {
             HStack {
                 Text("Lojas")
-                    .font(.headline)
-                    .fontWeight(.semibold)
+                    .font(.customStyle(type: .nunito, style: .bold, size: 16))
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
                 
@@ -36,6 +35,7 @@ struct StoresListView: View {
                         rateFilter = 0
                     }, label: {
                         Text("Limpar Filtro")
+                            .font(.customStyle(type: .nunito, style: .bold, size: 12))
                     })
                     Divider()
                     ForEach(1...5, id: \.self) { rate in
@@ -46,11 +46,12 @@ struct StoresListView: View {
                             Text("\(rate) estrelas ou mais") :
                             Text("\(rate) estrela ou mais")
                         })
+                        .font(.customStyle(type: .nunito, style: .semiBold, size: 10))
                     }
                 }
                 .foregroundStyle(.black)
                 .padding(.trailing)
-                
+                .font(.customStyle(type: .nunito, style: .bold, size: 16))
             }
             
             if(filteredStores.isEmpty) {
@@ -58,12 +59,14 @@ struct StoresListView: View {
                     Image("EmptyState")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 120, height: 120)
                         .padding(.top, 32)
                     
-                    Text("Nenhma loja encontrada")
+                    Text("Nenhuma loja encontrada")
+                        .font(.customStyle(type: .nunito, style: .bold, size: 20))
+                    
                 }
-            } else {                
+            } else {
                 List(filteredStores) { store in
                     Button(action: {
                         coordinator.push(.products(store: store))

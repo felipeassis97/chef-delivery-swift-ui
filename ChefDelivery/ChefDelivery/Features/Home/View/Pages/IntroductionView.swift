@@ -34,14 +34,13 @@ struct IntroductionView: View {
                 
                 VStack {
                     Text("Chef Delivery")
-                        .font(.system(size: 40))
-                        .fontWeight(.heavy)
+                        .font(.customStyle(type: .nunito, style: .bold, size: 40))
                         .foregroundStyle(.colorRed)
                         .opacity(isAnimated ? 1 : 0)
                         .offset(y: isAnimated ? 0 : -40)
                     
                     Text("Peça as suas comidas no conforto da sua casa")
-                        .font(.title2)
+                        .font(.customStyle(type: .nunito, style: .medium, size: 20))
                         .padding()
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.black.opacity(0.7))
@@ -80,7 +79,8 @@ struct IntroductionView: View {
                             .padding(8)
                         
                         Text("Descubra mais")
-                            .font(.title2)
+                            .font(.customStyle(type: .nunito, style: .bold, size: 24))
+
                             .bold()
                             .foregroundStyle(.colorRed)
                             .offset(x: 20)

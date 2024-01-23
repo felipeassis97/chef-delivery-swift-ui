@@ -15,7 +15,6 @@ struct HomeView: View {
             if viewModel.isIsLoading {
                 ProgressView()
             } else if viewModel.isIsError {
-                
                 VStack(alignment: .center, spacing: 16) {
                     Text("Ocorreu um erro! Por favor, tente novamente.")
                         .frame(width: .infinity, height: .infinity)

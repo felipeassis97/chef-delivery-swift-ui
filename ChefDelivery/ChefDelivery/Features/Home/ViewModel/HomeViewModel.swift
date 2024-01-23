@@ -8,9 +8,9 @@
 import Foundation
 
 class HomeViewModel: ObservableObject {
-    let service: NetworkService2
+    let service: HttpClient
     
-    init(service: NetworkService2) {
+    init(service: HttpClient) {
         self.service = service
     }
     
