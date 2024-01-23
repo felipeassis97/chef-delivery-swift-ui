@@ -8,6 +8,65 @@
 import Foundation
 import Alamofire
 
+enum RequestError: Error {
+    case invalidURL
+    case decodeError
+    case noResponse
+    case notFound
+    case badRequest
+    case unknownError(error: String)
+    case requestError(error: String)
+}
+
+protocol NetworkService2 {
+    func get<T: Decodable>(path: String, responseModel: T.Type?) async throws -> Result<T?, RequestError>
+}
+
+struct NetworkServiceImpl: NetworkService2 {
+    func get<T: Decodable>(path: String, responseModel: T.Type?) async throws -> Result<T?, RequestError> {
+        guard let url = URL(string: path) else {
+            return .failure(.invalidURL)
+        }
+        
+        let request = URLRequest(url: url)
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let response = response as? HTTPURLResponse else {
+                return .failure(.noResponse)
+            }
+            
+            switch response.statusCode {
+            case 200...201:
+                guard responseModel != nil else {
+                    return .success(nil)
+                }
+                guard let decodedResponse = try? JSONDecoder().decode(T.self, from: data) else {
+                    return .failure(.decodeError)
+                }
+                return .success(decodedResponse)
+                
+            case 400...499:
+                return .failure(.notFound)
+                
+            case 500...599:
+                return .failure(.badRequest)
+
+            default:
+                return .failure(.unknownError(error: "Status code: \(response.statusCode)"))
+            }
+        }
+        catch {
+            return .failure(.unknownError(error: "Unknown error: \(error)"))
+        }
+    }
+}
+
+
+
+
+
+
+
 struct NetworkService {
     
 // MARK: Alamofire implementation
@@ -33,12 +92,7 @@ struct NetworkService {
     }
     
 // MARK: Native implementation
-    enum RequestError: Error {
-        case invalidURL
-        case decodeError
-        case requestError(error: String)
-    }
-    
+
     func fetchData() async throws -> Result<[StoreType], RequestError> {
         guard let url = URL(string: "https://private-c9da9-felipeassis.apiary-mock.com/home") else {
             return .failure(.invalidURL)

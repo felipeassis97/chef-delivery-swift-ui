@@ -100,7 +100,7 @@ struct ProductDetailView: View {
                 .font(.title3)
                 .bold()
                 .foregroundStyle(.white)
-                .background(Color("ColorRed"))
+                .background(.colorRed)
             })
             .clipShape(RoundedRectangle(cornerRadius: 32))
             .shadow(color: .black.opacity(0.3), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)

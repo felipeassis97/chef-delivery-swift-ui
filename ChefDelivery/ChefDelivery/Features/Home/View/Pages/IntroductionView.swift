@@ -19,14 +19,14 @@ struct IntroductionView: View {
         GeometryReader { geometry in
             ZStack {
                 Circle()
-                    .foregroundStyle(Color("ColorRed"))
+                    .foregroundStyle(.colorRed)
                     .frame(width: 200)
                     .position(x: 50, y: 100)
                     .blur(radius: 60)
                     .opacity(0.5)
                 
                 Circle()
-                    .foregroundStyle(Color("ColorRedVariant"))
+                    .foregroundStyle(.colorRedVariant)
                     .frame(width: 200)
                     .position(x: geometry.size.width - 50, y: geometry.size.height)
                     .blur(radius: 60)
@@ -36,7 +36,7 @@ struct IntroductionView: View {
                     Text("Chef Delivery")
                         .font(.system(size: 40))
                         .fontWeight(.heavy)
-                        .foregroundStyle(Color("ColorRed"))
+                        .foregroundStyle(.colorRed)
                         .opacity(isAnimated ? 1 : 0)
                         .offset(y: isAnimated ? 0 : -40)
                     
@@ -71,23 +71,23 @@ struct IntroductionView: View {
                     
                     ZStack {
                         Capsule()
-                            .fill(Color("ColorRed"))
+                            .fill(.colorRed)
                             .opacity(0.2)
                         
                         Capsule()
-                            .fill(Color("ColorRed"))
+                            .fill(.colorRed)
                             .opacity(0.2)
                             .padding(8)
                         
                         Text("Descubra mais")
                             .font(.title2)
                             .bold()
-                            .foregroundStyle(Color("ColorRed"))
+                            .foregroundStyle(.colorRed)
                             .offset(x: 20)
                         
                         HStack {
                             Capsule()
-                                .fill(Color("ColorRed"))
+                                .fill(.colorRed)
                                 .frame(width: buttonOffSet + buttonHeight)
                             Spacer()
                         }
@@ -95,10 +95,10 @@ struct IntroductionView: View {
                         HStack {
                             ZStack {
                                 Circle()
-                                    .fill(Color("ColorRed"))
+                                    .fill(.colorRed)
                                 
                                 Circle()
-                                    .fill(Color("ColorRedVariant"))
+                                    .fill(.colorRedVariant)
                                     .padding(8)
                                 
                                 Image(systemName: "chevron.right.2")

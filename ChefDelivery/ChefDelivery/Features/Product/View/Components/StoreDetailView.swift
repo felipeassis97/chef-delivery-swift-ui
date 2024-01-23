@@ -76,7 +76,7 @@ struct StoreDetailView: View {
                         },
                         label: {
                             HStack(spacing: 4) {
-                                Image(systemName: "cart").foregroundStyle(Color("ColorRed"))
+                                Image(systemName: "cart").foregroundStyle(.colorRed)
                                 Text("Lojas").foregroundStyle(.red)
                             }
                     })

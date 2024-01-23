@@ -8,66 +8,57 @@
 import SwiftUI
 
 struct HomeView: View {
-    private let service = NetworkService()
-    
-    @State private var homeStores: [StoreType] = []
-    @State private var isLoading: Bool = false
+    @StateObject var viewModel: HomeViewModel = sl.getService()!
     
     var body: some View {
-            VStack(spacing: 16) {
+        VStack(spacing: 16) {
+            if viewModel.isIsLoading {
+                ProgressView()
+            } else if viewModel.isIsError {
                 
-                if isLoading {
-                    ProgressView()
-                } else {
-                    NavigationBar()
-                        .padding(.horizontal, 8)
-                    
-                    ScrollView(.vertical, showsIndicators: false) {
-                        OrderTypeGridView()
-                        
-                        CarrousselTabView()
-                            .padding(.top, 16)
-                        
-                        StoresListView(stores: homeStores)
-                            .padding(.top, 16)
+                VStack(alignment: .center, spacing: 16) {
+                    Text("Ocorreu um erro! Por favor, tente novamente.")
+                        .frame(width: .infinity, height: .infinity)
+                        .foregroundStyle(.colorRedVariant)
+                    Button(action: {
+                        Task {
+                            await viewModel.getStores()
+                        }
+                    }, label: {
+                        HStack {
+                            Text("Tentar novamente")
+                                .padding()
+                                .font(.title3)
+                                .foregroundStyle(.colorRedVariant)
+                            
+                            Image(systemName: "arrow.clockwise")
+                                .font(.title3)
+                                .foregroundStyle(.colorRedVariant)
+                        }
+                    })
                 }
-
+             
+            }
+            else {
+                NavigationBar()
+                    .padding(.horizontal, 8)
+                ScrollView(.vertical, showsIndicators: false) {
+                    OrderTypeGridView()
+                    CarrousselTabView()
+                        .padding(.top, 16)
+                    StoresListView(stores: viewModel.stores)
+                        .padding(.top, 16)
                 }
             }
-            .padding()
-            .navigationBarBackButtonHidden()
+        }
+        .padding()
+        .navigationBarBackButtonHidden()
         .onAppear {
             Task {
-                isLoading = true
-                await  getStores()
-                isLoading = false
+                await viewModel.getStores()
             }
-            
-            getStoresAlamofire()
         }
     }
-    
-    
-    func getStoresAlamofire() {
-        service.fetchDataAlamofire { stores, error in
-            print("ALAMOFIRE: \(String(describing: stores))")
-        }
-    }
-    
-    func getStores() async {
-        do {
-            let result = try await service.fetchData()
-            switch result {
-            case .success(let stores):
-             homeStores = stores
-            case .failure(let error):
-                print(error)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
 }
 
 #Preview {

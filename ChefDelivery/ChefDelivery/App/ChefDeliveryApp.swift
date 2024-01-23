@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct ChefDeliveryApp: App {
+    init() {
+        setupServiceLocator()
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()

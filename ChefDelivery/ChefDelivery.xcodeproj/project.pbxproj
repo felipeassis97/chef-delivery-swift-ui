@@ -28,6 +28,9 @@
 		9E7B4BFA2B482752009091F7 /* CarrousselTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7B4BF92B482752009091F7 /* CarrousselTabView.swift */; };
 		9E7B4BFD2B482ACF009091F7 /* StoreItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7B4BFC2B482ACF009091F7 /* StoreItemView.swift */; };
 		9E7B4BFF2B482C2F009091F7 /* StoresListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7B4BFE2B482C2F009091F7 /* StoresListView.swift */; };
+		9E861B822B5EF498006E44D8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861B812B5EF498006E44D8 /* HomeViewModel.swift */; };
+		9E861B852B5EF9FF006E44D8 /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861B842B5EF9FF006E44D8 /* ServiceLocator.swift */; };
+		9E861B872B5EFAD8006E44D8 /* SetupServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861B862B5EFAD8006E44D8 /* SetupServiceLocator.swift */; };
 		9E95D2862B4C14080057F1D9 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95D2852B4C14080057F1D9 /* NetworkService.swift */; };
 		9ED13CEC2B5D4F5E00AEB359 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED13CEB2B5D4F5E00AEB359 /* HomeView.swift */; };
 /* End PBXBuildFile section */
@@ -55,6 +58,9 @@
 		9E7B4BF92B482752009091F7 /* CarrousselTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrousselTabView.swift; sourceTree = "<group>"; };
 		9E7B4BFC2B482ACF009091F7 /* StoreItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItemView.swift; sourceTree = "<group>"; };
 		9E7B4BFE2B482C2F009091F7 /* StoresListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresListView.swift; sourceTree = "<group>"; };
+		9E861B812B5EF498006E44D8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		9E861B842B5EF9FF006E44D8 /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
+		9E861B862B5EFAD8006E44D8 /* SetupServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupServiceLocator.swift; sourceTree = "<group>"; };
 		9E95D2852B4C14080057F1D9 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9ED13CEB2B5D4F5E00AEB359 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +145,7 @@
 		9E12B5722B5A8F2900464B89 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9E861B832B5EF9EB006E44D8 /* ServiceLocator */,
 				9E12B57B2B5A940500464B89 /* Coordinator */,
 				9E02F7152B4971B900E64213 /* Extensions */,
 				9E12B5732B5A8F3800464B89 /* Services */,
@@ -192,6 +199,7 @@
 		9E12B5782B5A90EE00464B89 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9E861B812B5EF498006E44D8 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -293,6 +301,15 @@
 			path = CarrouselView;
 			sourceTree = "<group>";
 		};
+		9E861B832B5EF9EB006E44D8 /* ServiceLocator */ = {
+			isa = PBXGroup;
+			children = (
+				9E861B842B5EF9FF006E44D8 /* ServiceLocator.swift */,
+				9E861B862B5EFAD8006E44D8 /* SetupServiceLocator.swift */,
+			);
+			path = ServiceLocator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -383,8 +400,11 @@
 				9E7B4BFD2B482ACF009091F7 /* StoreItemView.swift in Sources */,
 				9E02F70E2B49644E00E64213 /* StoreDetailView.swift in Sources */,
 				9ED13CEC2B5D4F5E00AEB359 /* HomeView.swift in Sources */,
+				9E861B852B5EF9FF006E44D8 /* ServiceLocator.swift in Sources */,
+				9E861B872B5EFAD8006E44D8 /* SetupServiceLocator.swift in Sources */,
 				9E7B4BF52B4821FE009091F7 /* OrderTypeItemView.swift in Sources */,
 				9E7B4BDA2B4811C5009091F7 /* ChefDeliveryApp.swift in Sources */,
+				9E861B822B5EF498006E44D8 /* HomeViewModel.swift in Sources */,
 				9E02F7102B49672500E64213 /* StoreType.swift in Sources */,
 				9E02F7172B4971EB00E64213 /* Double+.swift in Sources */,
 				9E95D2862B4C14080057F1D9 /* NetworkService.swift in Sources */,
