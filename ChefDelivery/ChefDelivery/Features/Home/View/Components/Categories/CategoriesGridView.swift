@@ -1,5 +1,5 @@
 //
-//  OrderTypeGridView.swift
+//  CategoriesGridView.swift
 //  ChefDelivery
 //
 //  Created by Felipe Assis on 05/01/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OrderTypeGridView: View {
+struct CategoriesGridView: View {
     //MARK: Atributes
     var gridLayout: [GridItem] {
         return Array(repeating: GridItem(.flexible(), spacing: 8), count: 2)
@@ -24,7 +24,7 @@ struct OrderTypeGridView: View {
                 ErrorCategoriesView()
             } else {
                 ForEach(categories) { categorie in
-                    OrderTypeItemView(categorie: categorie)
+                    CategoryItemView(categorie: categorie)
                 }
             }
         }
@@ -53,5 +53,5 @@ struct ErrorCategoriesView : View {
 }
 
 #Preview {
-    OrderTypeGridView(categories: [])
+    CategoriesGridView(categories: [])
 }

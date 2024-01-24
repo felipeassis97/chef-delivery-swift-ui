@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OrderTypeItemView: View {
+struct CategoryItemView: View {
     //MARK: States
     @State private var image: UIImage?
     
@@ -43,5 +43,5 @@ struct OrderTypeItemView: View {
 }
 
 #Preview {
-    OrderTypeItemView(categorie: Categorie(id: 1, name: "Restaurantes", thumb: "hamburguer"))
+    CategoryItemView(categorie: Categorie(id: 1, name: "Restaurantes", thumb: "hamburguer"))
 }

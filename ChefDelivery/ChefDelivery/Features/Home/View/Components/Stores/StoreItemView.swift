@@ -12,7 +12,7 @@ struct StoreItemView: View {
     @State private var image: UIImage?
     
     //MARK: Atributes
-    var orderItem: StoreType
+    var orderItem: Store
     let downloadImage = DownloadImageService()
     
     var body: some View {
@@ -42,7 +42,7 @@ struct StoreItemView: View {
 }
 
 #Preview {
-    StoreItemView(orderItem: StoreType(
+    StoreItemView(orderItem: Store(
         id: 1,
         name: "Monstro Burger",
         logoImage: "monstro-burger-logo",

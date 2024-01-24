@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductDetailView: View {
     //MARK: Atributes
-    let product: ProductType
+    let product: Product
     private let service = NetworkService()
 
     //MARK: States
@@ -110,5 +110,5 @@ struct ProductDetailView: View {
 }
 
 #Preview {
-    ProductDetailView(product: ProductType(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99))
+    ProductDetailView(product: Product(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99))
 }

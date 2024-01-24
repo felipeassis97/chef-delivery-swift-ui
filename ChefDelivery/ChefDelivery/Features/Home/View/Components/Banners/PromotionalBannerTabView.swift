@@ -1,5 +1,5 @@
 //
-//  CarrousselTabView.swift
+//  PromotionalBannerTabView.swift
 //  ChefDelivery
 //
 //  Created by Felipe Assis on 05/01/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CarrousselTabView: View {
+struct PromotionalBannerTabView: View {
     //MARK: Atributes
     let banners: [Banner]
     
@@ -24,7 +24,7 @@ struct CarrousselTabView: View {
             }
             else {
                 ForEach(banners) { banner in
-                    CarrousselItemView(banner: banner)
+                    PromotionalBannerItemView(banner: banner)
                         .tag(banner.id)
                 }
             }
@@ -46,7 +46,7 @@ struct CarrousselTabView: View {
 
 struct LoadingBannersView : View {
     var body: some View {
-        ForEach(0...1, id: \.self) { _ in
+        ForEach(0...2, id: \.self) { _ in
             Rectangle()
                 .scaledToFill()
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -67,5 +67,5 @@ struct ErrorBannersView : View {
 }
 
 #Preview {
-    CarrousselTabView(banners: [])
+    PromotionalBannerTabView(banners: [])
 }

@@ -27,13 +27,13 @@ class HomeViewModel: ObservableObject {
     //MARK: Stores
     @Published var isLoadingStores: Bool = true
     @Published var isErrorStores: Bool = false
-    @Published var stores: [StoreType] = []
+    @Published var stores: [Store] = []
     
     @MainActor
     func getStores() async {
         do {
             let url = "https://private-c9da9-felipeassis.apiary-mock.com/stores"
-            let storesList = try await service.get(path: url, responseModel: [StoreType].self)
+            let storesList = try await service.get(path: url, responseModel: [Store].self)
             switch storesList {
             case .failure(_):
                 isErrorStores = true

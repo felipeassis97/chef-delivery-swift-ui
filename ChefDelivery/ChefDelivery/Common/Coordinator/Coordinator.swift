@@ -9,13 +9,13 @@ import SwiftUI
 
 
 enum NavigationParameters {
-    case productsParams(storeType: StoreType)
+    case productsParams(storeType: Store)
 }
 
 enum Page: Hashable {
     case initial
     case home
-    case products(store: StoreType)
+    case products(store: Store)
     
     var id: String {
         switch self {
@@ -40,7 +40,7 @@ enum Page: Hashable {
 }
 
 enum Sheet: Identifiable {
-    case productDetails(product: ProductType)
+    case productDetails(product: Product)
     
     var id: String {
         switch self {

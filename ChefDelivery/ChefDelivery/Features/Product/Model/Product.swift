@@ -1,5 +1,5 @@
 //
-//  ProductType.swift
+//  Product.swift
 //  ChefDelivery
 //
 //  Created by Felipe Assis on 06/01/24.
@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct ProductType: Identifiable, Codable, Hashable {
+struct Product: Identifiable, Codable, Hashable {
     let id: Int
     let name: String
     let description: String

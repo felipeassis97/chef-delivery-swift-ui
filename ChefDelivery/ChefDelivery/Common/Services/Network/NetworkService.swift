@@ -21,8 +21,8 @@ enum RequestError: Error {
 struct NetworkService {
     
 // MARK: Alamofire implementation
-    func fetchDataAlamofire(completion: @escaping ([StoreType]?, Error?) -> Void) {
-        AF.request("https://private-c9da9-felipeassis.apiary-mock.com/home").responseDecodable(of: [StoreType].self) { response in
+    func fetchDataAlamofire(completion: @escaping ([Store]?, Error?) -> Void) {
+        AF.request("https://private-c9da9-felipeassis.apiary-mock.com/home").responseDecodable(of: [Store].self) { response in
             switch response.result {
             case .success(let stores):
                 completion(stores, nil)
@@ -32,7 +32,7 @@ struct NetworkService {
         
     }
     
-    func sendOrderAlamofire(  product: ProductType, completion: @escaping (String?, Error?) -> Void) {
+    func sendOrderAlamofire(  product: Product, completion: @escaping (String?, Error?) -> Void) {
         AF.request("https://private-c9da9-felipeassis.apiary-mock.com/home", method: .post).responseDecodable(of: String.self) { response in
             switch response.result {
             case .success(let message):
@@ -44,7 +44,7 @@ struct NetworkService {
     
 // MARK: Native implementation
 
-    func fetchData() async throws -> Result<[StoreType], RequestError> {
+    func fetchData() async throws -> Result<[Store], RequestError> {
         guard let url = URL(string: "https://private-c9da9-felipeassis.apiary-mock.com/home") else {
             return .failure(.invalidURL)
         }
@@ -54,7 +54,7 @@ struct NetworkService {
         
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
-            let stores = try JSONDecoder().decode([StoreType].self, from: data)
+            let stores = try JSONDecoder().decode([Store].self, from: data)
             return .success(stores)
         }
         catch {
@@ -62,7 +62,7 @@ struct NetworkService {
         }
      }
     
-    func sendOrder(product: ProductType) async throws -> Result<String?, RequestError> {
+    func sendOrder(product: Product) async throws -> Result<String?, RequestError> {
         guard let url = URL(string: "https://private-c9da9-felipeassis.apiary-mock.com/home") else {
             return .failure(.invalidURL)
         }

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct StoreDetailView: View {
     //MARK: Atributes
-    let store: StoreType
+    let store: Store
     
     //MARK: States
     @Environment(\.dismiss) var presentaionMode
     @EnvironmentObject private var coordinator: Coordinator
-    @State private var selectedProduct: ProductType?
+    @State private var selectedProduct: Product?
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -87,7 +87,7 @@ struct StoreDetailView: View {
 }
 
 #Preview {
-    StoreDetailView(store: StoreType(
+    StoreDetailView(store: Store(
         id: 1,
         name: "Monstro Burger",
         logoImage: "monstro-burger-logo",

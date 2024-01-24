@@ -9,8 +9,8 @@ import SwiftUI
 
 struct StoresListView: View {
     //MARK: Atributes
-    var stores: [StoreType]
-    var filteredStores: [StoreType] {
+    var stores: [Store]
+    var filteredStores: [Store] {
         return stores.filter { store in
             store.rate >= rateFilter
         }
@@ -111,7 +111,7 @@ struct ErrorStoresView : View {
 
 #Preview {
     StoresListView(stores:[
-        StoreType(
+        Store(
             id: 1,
             name: "Monstro Burger",
             logoImage: "monstro-burger-logo",
@@ -119,11 +119,11 @@ struct ErrorStoresView : View {
             location: "Rua Principal, 123, São Paulo, SP",
             rate: 4,
             products: [
-                ProductType(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99),
-                ProductType(id: 2, name: "Hambúrguer com Bacon", description: "Hambúrguer de carne com queijo, bacon crocante, alface e tomate", image: "bacon_burger", price: 16.99),
-                ProductType(id: 3, name: "Batatas Fritas", description: "Porção de batatas fritas crocantes", image: "fries", price: 5.99),
-                ProductType(id: 4, name: "Refrigerante", description: "Lata de refrigerante de 355ml", image: "soda", price: 3.99),
-                ProductType(id: 5, name: "Sorvete de Baunilha", description: "Copo de sorvete de baunilha", image: "vanilla_ice_cream", price: 4.99)
+                Product(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99),
+                Product(id: 2, name: "Hambúrguer com Bacon", description: "Hambúrguer de carne com queijo, bacon crocante, alface e tomate", image: "bacon_burger", price: 16.99),
+                Product(id: 3, name: "Batatas Fritas", description: "Porção de batatas fritas crocantes", image: "fries", price: 5.99),
+                Product(id: 4, name: "Refrigerante", description: "Lata de refrigerante de 355ml", image: "soda", price: 3.99),
+                Product(id: 5, name: "Sorvete de Baunilha", description: "Copo de sorvete de baunilha", image: "vanilla_ice_cream", price: 4.99)
             ]
         )]
     )

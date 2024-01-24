@@ -1,5 +1,5 @@
 //
-//  CarrousselItemView.swift
+//  PromotionalBannerItemView.swift
 //  ChefDelivery
 //
 //  Created by Felipe Assis on 05/01/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CarrousselItemView: View {
+struct PromotionalBannerItemView: View {
     //MARK: Atributes
     let banner: Banner
     let downloadImage = DownloadImageService()
@@ -39,5 +39,5 @@ struct CarrousselItemView: View {
 }
 
 #Preview {
-    CarrousselItemView(banner:  Banner(id: 1, image: "barbecue-banner"))
+    PromotionalBannerItemView(banner:  Banner(id: 1, image: "barbecue-banner"))
 }

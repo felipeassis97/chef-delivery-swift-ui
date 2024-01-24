@@ -18,8 +18,8 @@ struct HomeView: View {
                 NavigationBar()
                     .padding(.horizontal, 8)
                 ScrollView(.vertical, showsIndicators: false) {
-                    OrderTypeGridView(categories: viewModel.categories)
-                    CarrousselTabView(banners: viewModel.banners)
+                    CategoriesGridView(categories: viewModel.categories)
+                    PromotionalBannerTabView(banners: viewModel.banners)
                         .padding(.top, 16)
                     StoresListView(stores: viewModel.stores)
                         .padding(.top, 16)

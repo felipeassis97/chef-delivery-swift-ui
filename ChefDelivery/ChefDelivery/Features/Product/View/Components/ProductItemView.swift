@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductItemView: View {
     //MARK: Atributes
-    let product: ProductType
+    let product: Product
     
     var body: some View {
         HStack(spacing: 8) {
@@ -39,5 +39,5 @@ struct ProductItemView: View {
 }
 
 #Preview {
-    ProductItemView(product: ProductType(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99))
+    ProductItemView(product: Product(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99))
 }
