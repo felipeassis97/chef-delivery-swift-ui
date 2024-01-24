@@ -14,10 +14,9 @@ struct NavigationBar: View {
             Button("Av. Paulista, 154") {
                 print("Address")
             }
-            .fontWeight(.semibold)
-            .font(.subheadline)
+            .font(.customStyle(type: .nunito, style: .bold, size: 16))
             .foregroundColor(.black)
-            
+
             Spacer()
             
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {

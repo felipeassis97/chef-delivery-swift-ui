@@ -23,13 +23,10 @@ struct StoresListView: View {
     
     
     var body: some View {
-        
-        if viewModel.isIsLoading {
-            ForEach(0...4, id: \.self) {_ in
-                Rectangle()
-                    .frame(width: .infinity, height: 30)
-                    .foregroundStyle(.gray.opacity(0.1))
-            }
+        if viewModel.isLoadingStores {
+            LoadingStoresView()
+        } else if viewModel.isErrorStores {
+            ErrorStoresView()
         } else {
             VStack(spacing: 4) {
                 HStack {
@@ -94,7 +91,22 @@ struct StoresListView: View {
             }
         }
     }
-    
+}
+
+struct LoadingStoresView : View {
+    var body: some View {
+        ForEach(0...4, id: \.self) {_ in
+            Rectangle()
+                .frame(width: .infinity, height: 30)
+                .foregroundStyle(.gray.opacity(0.1))
+        }
+    }
+}
+
+struct ErrorStoresView : View {
+    var body: some View {
+        Text("Ocorreu um erro ao carregar as lojas")
+    }
 }
 
 #Preview {

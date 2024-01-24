@@ -14,12 +14,20 @@ class HomeViewModel: ObservableObject {
         self.service = service
     }
     
-    @Published var isIsLoading: Bool = true
-    @Published var isIsLoadingCategories: Bool = true
-    @Published var isIsError: Bool = false
-    @Published var isIsErrorCategories: Bool = false
-    @Published var stores: [StoreType] = []
+    //MARK: Categories
+    @Published var isLoadingCategories: Bool = true
+    @Published var isErrorCategories: Bool = false
     @Published var categories: [Categorie] = []
+
+    //MARK: Banners
+    @Published var isLoadingBanners: Bool = true
+    @Published var isErrorBanners: Bool = false
+    @Published var banners: [Banner] = []
+    
+    //MARK: Stores
+    @Published var isLoadingStores: Bool = true
+    @Published var isErrorStores: Bool = false
+    @Published var stores: [StoreType] = []
     
     @MainActor
     func getStores() async {
@@ -28,17 +36,17 @@ class HomeViewModel: ObservableObject {
             let storesList = try await service.get(path: url, responseModel: [StoreType].self)
             switch storesList {
             case .failure(_):
-               isIsError = true
+                isErrorStores = true
             case .success(let response):
                 if response != nil {
                     stores = response!
                 }
             }
-            isIsLoading = false
+            isLoadingStores = false
         }
         catch {
-            isIsLoading = false
-            isIsError = true
+            isLoadingStores = false
+            isErrorStores = true
         }
     }
     
@@ -49,16 +57,36 @@ class HomeViewModel: ObservableObject {
             let categorieList = try await service.get(path: url, responseModel: [Categorie].self)
             switch categorieList {
             case .failure:
-                isIsError = true
+                isErrorCategories = true
             case .success(let categorie):
                 if categorie != nil {
                     categories = categorie!
                 }
             }
-            isIsLoadingCategories = false
+            isLoadingCategories = false
         } catch {
-            isIsLoadingCategories = false
-            isIsErrorCategories = true
+            isLoadingCategories = false
+            isErrorCategories = true
+        }
+    }
+    
+    @MainActor
+    func getBanners() async {
+        do {
+            let url = "https://private-c9da9-felipeassis.apiary-mock.com/banners"
+            let bannerList = try await service.get(path: url, responseModel: [Banner].self)
+            switch bannerList {
+            case .failure:
+                isErrorBanners = true
+            case .success(let banner):
+                if banner != nil {
+                    banners = banner!
+                }
+            }
+            isLoadingBanners = false
+        } catch {
+            isLoadingBanners = false
+            isErrorBanners = true
         }
     }
 

@@ -31,7 +31,7 @@ struct OrderTypeItemView: View {
             }
             
             Text(categorie.name)
-                .font(.system(size: 10))
+                .font(.customStyle(type: .nunito, style: .medium, size: 10))
         }
         .frame(width: 70, height: 100)
         .onAppear {

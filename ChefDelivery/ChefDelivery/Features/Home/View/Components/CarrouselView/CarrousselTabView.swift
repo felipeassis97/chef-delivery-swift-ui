@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct CarrousselTabView: View {
+    //MARK: Atributes
+    let banners: [Banner]
+    
     //MARK: States
     @State private var currentCarrousselIndex = 1
+    @StateObject var viewModel: HomeViewModel = sl.getService()!
     
     var body: some View {
         TabView(selection: $currentCarrousselIndex) {
-            ForEach(banners) {
-                item in
-                CarrousselItemView(orderItem: item)
-                    .tag(item.id)
+            if viewModel.isLoadingBanners {
+                LoadingBannersView()
+            } else if viewModel.isErrorBanners {
+                ErrorBannersView()
+            }
+            else {
+                ForEach(banners) { banner in
+                    CarrousselItemView(banner: banner)
+                        .tag(banner.id)
+                }
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
@@ -34,6 +44,28 @@ struct CarrousselTabView: View {
     }
 }
 
+struct LoadingBannersView : View {
+    var body: some View {
+        ForEach(0...1, id: \.self) { _ in
+            Rectangle()
+                .scaledToFill()
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .foregroundStyle(.gray.opacity(0.1))
+                .padding(.horizontal, 24)
+        }
+    }
+}
+
+struct ErrorBannersView : View {
+    var body: some View {
+        Rectangle()
+            .scaledToFill()
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .foregroundStyle(.red.opacity(0.1))
+            .padding(.horizontal, 24)
+    }
+}
+
 #Preview {
-    CarrousselTabView()
+    CarrousselTabView(banners: [])
 }

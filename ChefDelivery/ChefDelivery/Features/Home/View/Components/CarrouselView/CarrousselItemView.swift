@@ -9,16 +9,35 @@ import SwiftUI
 
 struct CarrousselItemView: View {
     //MARK: Atributes
-    let orderItem: OrderType
+    let banner: Banner
+    let downloadImage = DownloadImageService()
     
+    //MARK: States
+    @State private var image: UIImage?
+
     var body: some View {
-        Image(orderItem.image)
-            .resizable()
-            .scaledToFit()
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+        ZStack {
+            if image != nil {
+                Image(uiImage: image!)
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            } else {
+                Rectangle()
+                    .scaledToFill()
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .foregroundStyle(.gray.opacity(0.1))
+                    .padding(.horizontal, 24)
+            }
+        }
+        .onAppear {
+            Task {
+                image = try? await downloadImage.dowloadImage(from: banner.image)
+            }
+        }
     }
 }
 
 #Preview {
-    CarrousselItemView(orderItem:  OrderType(id: 1, name: "Restaurantes", image: "barbecue-banner"))
+    CarrousselItemView(banner:  Banner(id: 1, image: "barbecue-banner"))
 }

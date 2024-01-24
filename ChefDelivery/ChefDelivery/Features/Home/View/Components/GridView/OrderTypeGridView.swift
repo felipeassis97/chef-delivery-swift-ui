@@ -18,14 +18,10 @@ struct OrderTypeGridView: View {
     
     var body: some View {
         LazyHGrid(rows: gridLayout, spacing: 16) {
-            if viewModel.isIsLoadingCategories {
-                ForEach(0...6, id: \.self) { _ in
-                    Rectangle()
-                        .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                        .foregroundStyle(.gray.opacity(0.1))
-                        .frame(width: 70, height: 70)
-                }
+            if viewModel.isLoadingStores {
+                LoadingCategoriesView()
+            } else if viewModel.isErrorCategories {
+                ErrorCategoriesView()
             } else {
                 ForEach(categories) { categorie in
                     OrderTypeItemView(categorie: categorie)
@@ -35,6 +31,24 @@ struct OrderTypeGridView: View {
         .frame(height: 200)
         .padding(.horizontal, 16)
         .padding(.top, 16)
+    }
+}
+
+struct LoadingCategoriesView : View {
+    var body: some View {
+        ForEach(0...6, id: \.self) { _ in
+            Rectangle()
+                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .foregroundStyle(.gray.opacity(0.1))
+                .frame(width: 70, height: 70)
+        }
+    }
+}
+
+struct ErrorCategoriesView : View {
+    var body: some View {
+        Text("Ocorreu um erro ao carregar as categorias")
     }
 }
 

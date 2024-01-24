@@ -12,14 +12,14 @@ struct HomeView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            if viewModel.isIsLoading {
+            if viewModel.isLoadingStores {
                 ProgressView()
             } else  {
                 NavigationBar()
                     .padding(.horizontal, 8)
                 ScrollView(.vertical, showsIndicators: false) {
                     OrderTypeGridView(categories: viewModel.categories)
-                    CarrousselTabView()
+                    CarrousselTabView(banners: viewModel.banners)
                         .padding(.top, 16)
                     StoresListView(stores: viewModel.stores)
                         .padding(.top, 16)
@@ -32,6 +32,7 @@ struct HomeView: View {
             Task {                
                 await viewModel.getCategories()
                 await viewModel.getStores()
+                await viewModel.getBanners()
             }
         }
     }
