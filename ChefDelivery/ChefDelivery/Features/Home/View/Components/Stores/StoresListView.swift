@@ -19,71 +19,82 @@ struct StoresListView: View {
     //MARK: States
     @EnvironmentObject private var coordinator: Coordinator
     @State private var rateFilter = 0
+    @StateObject var viewModel: HomeViewModel = sl.getService()!
+    
     
     var body: some View {
-        VStack(spacing: 4) {
-            HStack {
-                Text("Lojas")
-                    .font(.customStyle(type: .nunito, style: .bold, size: 16))
-                    .padding(.leading, 16)
-                    .padding(.bottom, 8)
-                
-                Spacer()
-                
-                Menu("Filtrar") {
-                    Button(action: {
-                        rateFilter = 0
-                    }, label: {
-                        Text("Limpar Filtro")
-                            .font(.customStyle(type: .nunito, style: .bold, size: 12))
-                    })
-                    Divider()
-                    ForEach(1...5, id: \.self) { rate in
-                        Button(action: {
-                            rateFilter = rate
-                        }, label: {
-                            rate > 1 ?
-                            Text("\(rate) estrelas ou mais") :
-                            Text("\(rate) estrela ou mais")
-                        })
-                        .font(.customStyle(type: .nunito, style: .semiBold, size: 10))
-                    }
-                }
-                .foregroundStyle(.black)
-                .padding(.trailing)
-                .font(.customStyle(type: .nunito, style: .bold, size: 16))
+        
+        if viewModel.isIsLoading {
+            ForEach(0...4, id: \.self) {_ in
+                Rectangle()
+                    .frame(width: .infinity, height: 30)
+                    .foregroundStyle(.gray.opacity(0.1))
             }
-            
-            if(filteredStores.isEmpty) {
-                VStack(alignment: .center, spacing: 16) {
-                    Image("EmptyState")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 120, height: 120)
-                        .padding(.top, 32)
+        } else {
+            VStack(spacing: 4) {
+                HStack {
+                    Text("Lojas")
+                        .font(.customStyle(type: .nunito, style: .bold, size: 16))
+                        .padding(.leading, 16)
+                        .padding(.bottom, 8)
                     
-                    Text("Nenhuma loja encontrada")
-                        .font(.customStyle(type: .nunito, style: .bold, size: 20))
+                    Spacer()
                     
+                    Menu("Filtrar") {
+                        Button(action: {
+                            rateFilter = 0
+                        }, label: {
+                            Text("Limpar Filtro")
+                                .font(.customStyle(type: .nunito, style: .bold, size: 12))
+                        })
+                        Divider()
+                        ForEach(1...5, id: \.self) { rate in
+                            Button(action: {
+                                rateFilter = rate
+                            }, label: {
+                                rate > 1 ?
+                                Text("\(rate) estrelas ou mais") :
+                                Text("\(rate) estrela ou mais")
+                            })
+                            .font(.customStyle(type: .nunito, style: .semiBold, size: 10))
+                        }
+                    }
+                    .foregroundStyle(.black)
+                    .padding(.trailing)
+                    .font(.customStyle(type: .nunito, style: .bold, size: 16))
                 }
-            } else {
-                List(filteredStores) { store in
-                    Button(action: {
-                        coordinator.push(.products(store: store))
-                    }, label: {
-                        StoreItemView(orderItem: store)
-                    })
+                
+                if(filteredStores.isEmpty) {
+                    VStack(alignment: .center, spacing: 16) {
+                        Image("EmptyState")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 120, height: 120)
+                            .padding(.top, 32)
+                        
+                        Text("Nenhuma loja encontrada")
+                            .font(.customStyle(type: .nunito, style: .bold, size: 20))
+                        
+                    }
+                } else {
+                    List(filteredStores) { store in
+                        Button(action: {
+                            coordinator.push(.products(store: store))
+                        }, label: {
+                            StoreItemView(orderItem: store)
+                        })
+                    }
+                    .scrollDisabled(true)
+                    .scrollContentBackground(.hidden)
+                    .scaledToFit()
+                    .listStyle(.plain)
+                    .foregroundStyle(.black)
+                    .listRowSeparator(.hidden)
                 }
-                .scrollDisabled(true)
-                .scrollContentBackground(.hidden)
-                .scaledToFit()
-                .listStyle(.plain)
-                .foregroundStyle(.black)
-                .listRowSeparator(.hidden)
             }
         }
-        
     }
+    
 }
 
 #Preview {

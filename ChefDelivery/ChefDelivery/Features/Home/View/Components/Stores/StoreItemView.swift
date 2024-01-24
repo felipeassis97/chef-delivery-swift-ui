@@ -26,7 +26,7 @@ struct StoreItemView: View {
             } else {
                 Circle()
                     .scaledToFit()
-                    .foregroundStyle(.gray.opacity(0.2))
+                    .foregroundStyle(.gray.opacity(0.1))
                     .frame(width: 40, height: 40)
             }
             Text(orderItem.name)

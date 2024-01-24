@@ -13,11 +13,23 @@ struct OrderTypeGridView: View {
         return Array(repeating: GridItem(.flexible(), spacing: 8), count: 2)
     }
     
+    @StateObject var viewModel: HomeViewModel = sl.getService()!
+    let categories: [Categorie]
+    
     var body: some View {
         LazyHGrid(rows: gridLayout, spacing: 16) {
-            ForEach(filterTypes) {
-                categorie in
-                OrderTypeItemView(orderItem: categorie)
+            if viewModel.isIsLoadingCategories {
+                ForEach(0...6, id: \.self) { _ in
+                    Rectangle()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                        .foregroundStyle(.gray.opacity(0.1))
+                        .frame(width: 70, height: 70)
+                }
+            } else {
+                ForEach(categories) { categorie in
+                    OrderTypeItemView(categorie: categorie)
+                }
             }
         }
         .frame(height: 200)
@@ -27,5 +39,5 @@ struct OrderTypeGridView: View {
 }
 
 #Preview {
-    OrderTypeGridView()
+    OrderTypeGridView(categories: [])
 }

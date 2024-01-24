@@ -8,23 +8,40 @@
 import SwiftUI
 
 struct OrderTypeItemView: View {
+    //MARK: States
+    @State private var image: UIImage?
+    
     //MARK: Atributes
-    let orderItem: OrderType
+    let downloadImage = DownloadImageService()
+    let categorie: Categorie
     
     var body: some View {
         VStack(spacing: 5) {
-            Image(orderItem.image)
-                .resizable()
-                .scaledToFit()
-                .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+            if image != nil {
+                Image(uiImage: image!)
+                    .resizable()
+                    .scaledToFit()
+                    .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+            } else {
+                Rectangle()
+                    .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                    .foregroundStyle(.gray.opacity(0.1))
+                    .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+            }
             
-            Text(orderItem.name)
+            Text(categorie.name)
                 .font(.system(size: 10))
         }
         .frame(width: 70, height: 100)
+        .onAppear {
+            Task {
+                image = try? await downloadImage.dowloadImage(from: categorie.thumb)
+            }
+        }
     }
 }
 
 #Preview {
-    OrderTypeItemView(orderItem: OrderType(id: 1, name: "Restaurantes", image: "hamburguer"))
+    OrderTypeItemView(categorie: Categorie(id: 1, name: "Restaurantes", thumb: "hamburguer"))
 }

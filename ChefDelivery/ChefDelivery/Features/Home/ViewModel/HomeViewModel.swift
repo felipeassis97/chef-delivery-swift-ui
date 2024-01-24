@@ -15,13 +15,16 @@ class HomeViewModel: ObservableObject {
     }
     
     @Published var isIsLoading: Bool = true
+    @Published var isIsLoadingCategories: Bool = true
     @Published var isIsError: Bool = false
+    @Published var isIsErrorCategories: Bool = false
     @Published var stores: [StoreType] = []
+    @Published var categories: [Categorie] = []
     
     @MainActor
     func getStores() async {
         do {
-            let url = "https://private-c9da9-felipeassis.apiary-mock.com/home"
+            let url = "https://private-c9da9-felipeassis.apiary-mock.com/stores"
             let storesList = try await service.get(path: url, responseModel: [StoreType].self)
             switch storesList {
             case .failure(_):
@@ -36,6 +39,26 @@ class HomeViewModel: ObservableObject {
         catch {
             isIsLoading = false
             isIsError = true
+        }
+    }
+    
+    @MainActor
+    func getCategories() async {
+        do {
+            let url = "https://private-c9da9-felipeassis.apiary-mock.com/categories"
+            let categorieList = try await service.get(path: url, responseModel: [Categorie].self)
+            switch categorieList {
+            case .failure:
+                isIsError = true
+            case .success(let categorie):
+                if categorie != nil {
+                    categories = categorie!
+                }
+            }
+            isIsLoadingCategories = false
+        } catch {
+            isIsLoadingCategories = false
+            isIsErrorCategories = true
         }
     }
 

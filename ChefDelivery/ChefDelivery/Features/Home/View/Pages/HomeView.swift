@@ -14,46 +14,23 @@ struct HomeView: View {
         VStack(spacing: 16) {
             if viewModel.isIsLoading {
                 ProgressView()
-            } else if viewModel.isIsError {
-                VStack(alignment: .center, spacing: 16) {
-                    Text("Ocorreu um erro! Por favor, tente novamente.")
-                        .frame(width: .infinity, height: .infinity)
-                        .foregroundStyle(.colorRedVariant)
-                    Button(action: {
-                        Task {
-                            await viewModel.getStores()
-                        }
-                    }, label: {
-                        HStack {
-                            Text("Tentar novamente")
-                                .padding()
-                                .font(.title3)
-                                .foregroundStyle(.colorRedVariant)
-                            
-                            Image(systemName: "arrow.clockwise")
-                                .font(.title3)
-                                .foregroundStyle(.colorRedVariant)
-                        }
-                    })
-                }
-             
-            }
-            else {
+            } else  {
                 NavigationBar()
                     .padding(.horizontal, 8)
                 ScrollView(.vertical, showsIndicators: false) {
-                    OrderTypeGridView()
+                    OrderTypeGridView(categories: viewModel.categories)
                     CarrousselTabView()
                         .padding(.top, 16)
                     StoresListView(stores: viewModel.stores)
                         .padding(.top, 16)
                 }
             }
-        }
+       }
         .padding()
         .navigationBarBackButtonHidden()
         .onAppear {
-            Task {
+            Task {                
+                await viewModel.getCategories()
                 await viewModel.getStores()
             }
         }
