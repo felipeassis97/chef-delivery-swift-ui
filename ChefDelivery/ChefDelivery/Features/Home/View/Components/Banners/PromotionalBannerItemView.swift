@@ -6,35 +6,27 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PromotionalBannerItemView: View {
     //MARK: Atributes
     let banner: Banner
-    let downloadImage = DownloadImageService()
-    
-    //MARK: States
-    @State private var image: UIImage?
 
     var body: some View {
         ZStack {
-            if image != nil {
-                Image(uiImage: image!)
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-            } else {
-                Rectangle()
-                    .scaledToFill()
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .foregroundStyle(.gray.opacity(0.1))
-                    .padding(.horizontal, 24)
-            }
+            KFImage(URL(string: banner.image))
+                .placeholder({ _ in
+                    Rectangle()
+                        .scaledToFill()
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .foregroundStyle(.gray.opacity(0.1))
+                        .padding(.horizontal, 24)
+                })
+                .resizable()
+                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 20))
         }
-        .onAppear {
-            Task {
-                image = try? await downloadImage.dowloadImage(from: banner.image)
-            }
-        }
+
     }
 }
 

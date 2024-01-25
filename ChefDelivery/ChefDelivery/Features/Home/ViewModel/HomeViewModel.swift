@@ -18,7 +18,7 @@ class HomeViewModel: ObservableObject {
     @Published var isLoadingCategories: Bool = true
     @Published var isErrorCategories: Bool = false
     @Published var categories: [Categorie] = []
-
+    
     //MARK: Banners
     @Published var isLoadingBanners: Bool = true
     @Published var isErrorBanners: Bool = false
@@ -60,7 +60,7 @@ class HomeViewModel: ObservableObject {
                 isErrorCategories = true
             case .success(let categorie):
                 if categorie != nil {
-                    categories = categorie!
+                    self.categories = categorie!
                 }
             }
             isLoadingCategories = false
@@ -89,5 +89,5 @@ class HomeViewModel: ObservableObject {
             isErrorBanners = true
         }
     }
-
+    
 }

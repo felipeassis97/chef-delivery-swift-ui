@@ -6,35 +6,45 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProductItemView: View {
     //MARK: Atributes
     let product: Product
-    
+
     var body: some View {
         HStack(spacing: 8) {
             VStack(alignment: .leading, spacing: 8) {
                 Text(product.name)
-                    .bold()
+                    .font(.customStyle(type: .nunito, style: .semiBold, size: 16))
                     .foregroundStyle(.black)
                 
                 Text(product.description)
-                    .font(.subheadline)
+                    .font(.customStyle(type: .nunito, style: .regular, size: 16))
                     .foregroundStyle(.black.opacity(0.5))
                     .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                 
                 Text(product.formattedPrice)
+                    .font(.customStyle(type: .nunito, style: .semiBold, size: 16))
                     .foregroundStyle(.black)
-
             }
             Spacer()
-            Image(product.image)
+            KFImage(URL(string: product.image))
+                .placeholder({ _ in
+                    Rectangle()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .frame(width: 120, height: 120)
+                        .shadow(color:.black.opacity(0.3), radius: 20, x: 6, y: 8)
+                        .foregroundStyle(.gray.opacity(0.1))
+                })
                 .resizable()
                 .scaledToFit()
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .frame(width: 120, height: 120)
                 .shadow(color:.black.opacity(0.3), radius: 20, x: 6, y: 8)
-        }.padding()
+        }
+        .padding()
     }
 }
 

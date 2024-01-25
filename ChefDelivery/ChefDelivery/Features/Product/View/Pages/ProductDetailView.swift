@@ -6,48 +6,53 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProductDetailView: View {
     //MARK: Atributes
     let product: Product
-    private let service = NetworkService()
-
+    
     //MARK: States
     @State private var productQuantity = 1
     @State private var showAlert = false
-
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 16) {
-                Image(product.image)
+                KFImage(URL(string: product.image))
+                    .placeholder {
+                        Rectangle()
+                            .shadow(radius: 16.0)
+                            .scaledToFill()
+                            .frame(height: 100)
+                            .foregroundStyle(.gray.opacity(0.1))
+                    }
                     .resizable()
                     .scaledToFit()
-                    .shadow(radius: 16)
+                    .shadow(radius: 16.0)
                 
                 Text(product.name)
-                    .font(.title)
-                    .bold()
+                    .font(.customStyle(type: .nunito, style: .bold, size: 24))
                     .padding(.horizontal)
                 
                 Text(product.description)
+                    .font(.customStyle(type: .nunito, style: .regular, size: 18))
+                    .foregroundStyle(.black.opacity(0.7))
                     .padding(.horizontal)
                 
                 Text(product.formattedPrice)
-                    .font(.title3)
-                    .bold()
+                    .font(.customStyle(type: .nunito, style: .bold, size: 20))
                     .padding(.horizontal)
             }
             
             Spacer()
-      
+            
             VStack {
                 Text("Quantidade")
-                    .bold()
-                    .font(.title3)
-                
+                    .font(.customStyle(type: .nunito, style: .bold, size: 20))
+
                 HStack {
                     Button(action: {
-                        
                         if(productQuantity != 0) {
                             productQuantity -= 1
                         }
@@ -58,12 +63,11 @@ struct ProductDetailView: View {
                     })
                     
                     Text("\(productQuantity)")
-                        .font(.title2)
-                        .bold()
-                    
+                        .font(.customStyle(type: .nunito, style: .bold, size: 18))
+
                     Button(action: {
                         productQuantity += 1
-
+                        
                     }, label: {
                         Image(systemName: "plus.circle.fill")
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -74,26 +78,27 @@ struct ProductDetailView: View {
             Spacer()
             
             Button(action:{
-                Task {
-                    do {
-                        let result =  try await service.sendOrder(product: product)
-                        switch result {
-                        case .failure(let error) :
-                            print(error)
-                            break
-                            
-                        case .success:
-                            showAlert = true
-                            break
-                        }
-                    } catch {
-                        print("Ocorreu um erro")
-                    }
-                }
+                //                Task {
+                //                    do {
+                //                        let result =  try await service.sendOrder(product: product)
+                //                        switch result {
+                //                        case .failure(let error) :
+                //                            print(error)
+                //                            break
+                //
+                //                        case .success:
+                //                            showAlert = true
+                //                            break
+                //                        }
+                //                    } catch {
+                //                        print("Ocorreu um erro")
+                //                    }
+                //                }
             }, label: {
                 HStack(spacing: 8) {
                     Image(systemName: "cart")
                     Text("Adicionar ao carrinho")
+                        .font(.customStyle(type: .nunito, style: .regular, size: 16))
                 }
                 .padding(.horizontal, 32)
                 .padding(.vertical, 16)

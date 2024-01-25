@@ -12,4 +12,5 @@ let sl = LazyServiceLocator()
  func setupServiceLocator() {
     sl.addService(instance: HttpClientImpl() as HttpClient)
     sl.addService(instance: HomeViewModel(service: sl.getService()! as HttpClient) as HomeViewModel)
+    sl.addService(instance: CartViewModel())
 }

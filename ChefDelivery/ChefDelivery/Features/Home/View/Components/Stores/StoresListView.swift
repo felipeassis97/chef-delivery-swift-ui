@@ -42,7 +42,6 @@ struct StoresListView: View {
                             rateFilter = 0
                         }, label: {
                             Text("Limpar Filtro")
-                                .font(.customStyle(type: .nunito, style: .bold, size: 12))
                         })
                         Divider()
                         ForEach(1...5, id: \.self) { rate in
@@ -53,14 +52,12 @@ struct StoresListView: View {
                                 Text("\(rate) estrelas ou mais") :
                                 Text("\(rate) estrela ou mais")
                             })
-                            .font(.customStyle(type: .nunito, style: .semiBold, size: 10))
                         }
                     }
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.black.opacity(0.8))
                     .padding(.trailing)
-                    .font(.customStyle(type: .nunito, style: .bold, size: 16))
                 }
-                
+ 
                 if(filteredStores.isEmpty) {
                     VStack(alignment: .center, spacing: 16) {
                         Image("EmptyState")

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct StoreDetailView: View {
     //MARK: Atributes
@@ -19,16 +20,29 @@ struct StoreDetailView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {
-                Image(store.headerImage)
+                
+                KFImage(URL(string: store.headerImage))
+                    .placeholder {
+                        Rectangle()
+                            .scaledToFill()
+                            .frame(height: 100)
+                            .foregroundStyle(.gray.opacity(0.1))
+                    }
                     .resizable()
                     .scaledToFit()
                 
                 HStack{
                     Text(store.name)
-                        .font(.title)
-                        .bold()
+                        .font(.customStyle(type: .nunito, style: .bold, size: 24))
                     Spacer()
-                    Image(store.logoImage)
+                    
+                    KFImage(URL(string: store.logoImage))
+                        .placeholder {
+                            Rectangle()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                                .foregroundStyle(.gray.opacity(0.1))
+                        }
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
@@ -39,6 +53,8 @@ struct StoreDetailView: View {
                 HStack{
                     Text(store.location)
                         .padding(.trailing, 8)
+                        .font(.customStyle(type: .nunito, style: .semiBold, size: 16))
+                    
                     Spacer()
                     ForEach(1...store.rate, id: \.self) { _ in
                         Image(systemName: "star.fill")
@@ -50,22 +66,23 @@ struct StoreDetailView: View {
                 .padding(.horizontal)
                 
                 Text("Produtos")
-                    .font(.title2)
-                    .bold()
+                    .font(.customStyle(type: .nunito, style: .bold, size: 20))
                     .padding()
+                
                 ForEach(store.products) { product in
                     Button(action: {
                         selectedProduct = product
-                        coordinator.present(sheet: .productDetails(product: product))
+                        // coordinator.present(sheet: .productDetails(product: product))
                     }, label: {
                         ProductItemView(product: product)
                     })
-//                    .sheet(item: $selectedProduct) { product in
-//                        ProductDetailView(product: product)
-//                    }
+                    .sheet(item: $selectedProduct) { product in
+                        ProductDetailView(product: product)
+                    }
                 }
             }
-            .navigationTitle(store.name)
+            .navigationTitle(store.name)                            
+                .font(.customStyle(type: .nunito, style: .semiBold, size: 14))
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading, content: {
@@ -76,10 +93,14 @@ struct StoreDetailView: View {
                         },
                         label: {
                             HStack(spacing: 4) {
-                                Image(systemName: "cart").foregroundStyle(.colorRed)
-                                Text("Lojas").foregroundStyle(.red)
+                                Image(systemName: "cart")
+                                    .foregroundStyle(.colorRed)
+                                
+                                Text("Lojas")
+                                    .font(.customStyle(type: .nunito, style: .semiBold, size: 16))
+                                    .foregroundStyle(.colorRed)
                             }
-                    })
+                        })
                 })
             }
         }
