@@ -40,7 +40,7 @@ enum Page: Hashable {
 }
 
 enum Sheet: Identifiable {
-    case productDetails(product: Product)
+    case productDetails(product: Product, store: Store)
     
     var id: String {
         switch self {
@@ -91,9 +91,9 @@ class Coordinator: ObservableObject {
     @ViewBuilder
     func build(sheet: Sheet) -> some View {
         switch sheet {
-        case .productDetails(let product):
+        case .productDetails(let product, let store):
             NavigationStack {
-                ProductDetailView(product: product)
+                ProductDetailView(product: product, store: store)
             }
         }
     }

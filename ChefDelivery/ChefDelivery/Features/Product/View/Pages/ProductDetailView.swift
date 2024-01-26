@@ -11,10 +11,16 @@ import Kingfisher
 struct ProductDetailView: View {
     //MARK: Atributes
     let product: Product
+    let store: Store
     
     //MARK: States
     @State private var productQuantity = 1
     @State private var showAlert = false
+    @StateObject var viewModel: CartViewModel = sl.getService()!
+    @Environment(\.dismiss) var presentaionMode
+    @EnvironmentObject private var coordinator: Coordinator
+
+
     
     var body: some View {
         VStack {
@@ -76,24 +82,15 @@ struct ProductDetailView: View {
                 }
             }
             Spacer()
-            
             Button(action:{
-                //                Task {
-                //                    do {
-                //                        let result =  try await service.sendOrder(product: product)
-                //                        switch result {
-                //                        case .failure(let error) :
-                //                            print(error)
-                //                            break
-                //
-                //                        case .success:
-                //                            showAlert = true
-                //                            break
-                //                        }
-                //                    } catch {
-                //                        print("Ocorreu um erro")
-                //                    }
-                //                }
+                
+                if viewModel.cartItems != nil && viewModel.cartItems?.id != store.id {
+                    showAlert = true
+                } else {
+                    viewModel.addItem(item: CardProducts.factoryCardProducts(
+                        store: store, product: product, quantity: 1))
+                    coordinator.pop()
+                }
             }, label: {
                 HStack(spacing: 8) {
                     Image(systemName: "cart")
@@ -110,10 +107,36 @@ struct ProductDetailView: View {
             .clipShape(RoundedRectangle(cornerRadius: 32))
             .shadow(color: .black.opacity(0.3), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             .padding(.vertical, 16)
+            .alert("Atenção", isPresented: $showAlert, actions: {
+                Button {
+                    viewModel.clearCart()
+                    viewModel.addItem(item: CardProducts.factoryCardProducts(
+                        store: store, product: product, quantity: 1))
+                    coordinator.pop()
+                } label: {
+                    Text("Limpar carrinho e adicionar")
+                }
+                .font(.customStyle(type: .nunito, style: .bold, size: 16))
+                .foregroundStyle(.colorRed)
+
+            }, message: {
+                Text("Você já tem produtos de outra loja em seu carrinho. Deseja limpar o carrinho atual e adicionar o novo produto?")
+
+            })
+            
+
         }
     }
 }
 
 #Preview {
-    ProductDetailView(product: Product(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99))
+    ProductDetailView(product: Product(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99), store: Store(
+        id: 1,
+        name: "Monstro Burger",
+        logoImage: "monstro-burger-logo",
+        headerImage: "monstro-burger-header",
+        location: "Rua Principal, 123, São Paulo, SP",
+        rate: 4,
+        products: []
+    ))
 }

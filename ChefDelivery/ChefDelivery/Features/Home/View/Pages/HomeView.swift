@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel = sl.getService()!
+    @StateObject var cartViewModel: CartViewModel = sl.getService()!
     @State private var showModal: Bool = false
     
     var body: some View {
@@ -29,24 +30,27 @@ struct HomeView: View {
                     }
                 }
             }
-            Button(action: {
-                print("Carrinho")
-                showModal = true
-            }, label: {
-                ZStack(alignment: .center) {
-                    Circle()
-                        .frame(height: 64)
-                        .foregroundStyle(.colorRed)
-                    
-                    Image(systemName: "cart.fill")
-                        .foregroundStyle(.white)
-                        .font(.title2)
-                }
-                .padding(.trailing, 4)
-            })
-            .sheet(isPresented: $showModal, content: {
-                ProductDetailView(product: Product(id: 1, name: "Hambúrguer Clássico", description: "Hambúrguer de carne com queijo, alface e tomate", image: "classic_burger", price: 14.99))
-            })
+            
+            if cartViewModel.hasItems {
+                Button(action: {
+                    print("Carrinho")
+                    showModal = true
+                }, label: {
+                    ZStack(alignment: .center) {
+                        Circle()
+                            .frame(height: 64)
+                            .foregroundStyle(.colorRed)
+                        
+                        Image(systemName: "cart.fill")
+                            .foregroundStyle(.white)
+                            .font(.title2)
+                    }
+                    .padding(.trailing, 4)
+                })
+                .sheet(isPresented: $showModal, content: {
+                    CartView()
+                })
+            }
         }
         .padding()
         .navigationBarBackButtonHidden()
