@@ -10,6 +10,7 @@ import Foundation
 extension Double {
     func formatPrice() -> String {
         let formatterString = String(format: "%.2f", self)
-        return formatterString.replacingOccurrences(of: ".", with: ",")
+        let formatted =  formatterString.replacingOccurrences(of: ".", with: ",")
+        return "R$ \(formatted)"
     }
 }

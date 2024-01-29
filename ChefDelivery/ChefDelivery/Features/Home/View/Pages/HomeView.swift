@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel = sl.getService()!
-    @StateObject var cartViewModel: CartViewModel = sl.getService()!
+    var cartViewModel: CartViewModel = sl.getService()!
     @State private var showModal: Bool = false
     
     var body: some View {

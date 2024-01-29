@@ -6,16 +6,29 @@
 //
 
 import Foundation
+import Observation
 
-struct CardProducts: Identifiable, Codable {
+@Observable class CardProducts: Identifiable {
     let id: Int
     let storeName: String
     let storeImage: String
     let storeAddress: String
-    var items: [CardItem]
+    var items: [CardItem] = []
+    
+    init(id: Int, 
+         storeName: String,
+         storeImage: String,
+         storeAddress: String,
+         items: [CardItem]) {
+        self.id = id
+        self.storeName = storeName
+        self.storeImage = storeImage
+        self.storeAddress = storeAddress
+        self.items = items
+    }
     
    static func factoryCardProducts(store: Store, product: Product, quantity: Int) -> CardProducts {
-        return CardProducts(id: store.id, 
+        return CardProducts(id: store.id,
                             storeName: store.name, 
                             storeImage: store.logoImage,
                             storeAddress: store.location,
@@ -29,12 +42,26 @@ struct CardProducts: Identifiable, Codable {
     }
 }
 
-struct CardItem: Identifiable, Codable {
+@Observable class CardItem: Identifiable, Codable {
     let id: Int
     let name: String
     let description: String
     let image: String
     let price: Double
-    var quantity: Int
+    var quantity: Int = 0
+    
+    init(id: Int, 
+         name: String,
+         description: String,
+         image: String,
+         price: Double,
+         quantity: Int) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.image = image
+        self.price = price
+        self.quantity = quantity
+    }
 }
 

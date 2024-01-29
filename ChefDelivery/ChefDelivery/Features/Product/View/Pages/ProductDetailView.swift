@@ -16,7 +16,7 @@ struct ProductDetailView: View {
     //MARK: States
     @State private var productQuantity = 1
     @State private var showAlert = false
-    @StateObject var viewModel: CartViewModel = sl.getService()!
+    var viewModel: CartViewModel = sl.getService()!
     @Environment(\.dismiss) var presentaionMode
     @EnvironmentObject private var coordinator: Coordinator
 
@@ -88,7 +88,7 @@ struct ProductDetailView: View {
                     showAlert = true
                 } else {
                     viewModel.addItem(item: CardProducts.factoryCardProducts(
-                        store: store, product: product, quantity: 1))
+                        store: store, product: product, quantity: productQuantity))
                     coordinator.pop()
                 }
             }, label: {
